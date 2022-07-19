@@ -8,7 +8,7 @@ app.secret_key = "projectfinalCS50"
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = ''
-app.config['MYSQL_DB'] = 'organigrama'
+app.config['MYSQL_DB'] = 'school'
 mysql = MySQL(app)
 
 @app.route('/')
