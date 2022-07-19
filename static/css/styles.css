@@ -1,0 +1,54 @@
+nav div{
+  background-color: #4eb452 !important;
+}
+
+nav{
+  background-color: #4eb452 !important;
+  position: fixed !important;
+  width: 100%;
+  z-index: 1;
+}
+
+.title{
+  text-transform: uppercase;
+  font-size: 1.5em;
+}
+
+.image-sumar{
+  background-image: url('https://3.bp.blogspot.com/-vR177AQx2lU/TewGm7NXS6I/AAAAAAAAADA/-3ep-YCMd_U/s1600/Imagen0597.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;    
+}
+
+.main-content{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-sumar .main-content{
+  background-color: rgba(0,0,0,0.5);
+  height: 100vh;
+}
+
+.main-content h1{
+  color: #4eb452;
+  font-size: 3em;
+  text-align: center;
+  margin-top: -50px;
+}
+
+.main-content p{
+  color: #fff;
+  font-size: 1.5em;
+  text-align: center;
+  margin-top: 15px;
+  padding: 10px;
+}
+
+.form-register{
+  margin-top: 50px;
+}
