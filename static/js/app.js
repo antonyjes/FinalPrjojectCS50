@@ -7,4 +7,7 @@ $(document).ready(function() {
             $('#msg-passwords').html("Contraseñas coinciden").css({'color': 'green', 'font-size': '15px', 'font-weight': 'bold'});
         }
     });
+
+    // Hide alert message after 1.5 seconds
+    $('#alert').delay(1500).fadeOut('slow');
 });
