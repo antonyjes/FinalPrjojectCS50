@@ -48,6 +48,22 @@ def register():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if request.method == 'POST':
+        if not request.form.get('email'):
+            flash('Ingrese su correo electrónico', 'danger')
+        elif not request.form.get('password'):
+            flash('Ingrese su contraseña', 'danger')
+        else:
+            email = request.form.get('email')
+            password = request.form.get('password')
+            cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cur.execute("SELECT * FROM users WHERE email = %s AND password = %s", (email, check_password_hash(password)))
+            user = cur.fetchone()
+            if user:
+                flash('Bienvenido', 'success')
+                return redirect(url_for('main'))
+            else:
+                flash('Email o contraseña incorrectos', 'danger')
     return render_template('login.html')
 
 if __name__ == '__main__':
