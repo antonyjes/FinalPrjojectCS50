@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Final Project CS50</title>
+    <meta name="description" content="Web Page of To do list" />
+    <meta name="author" content="Jesús Córdova" />
+    <link
+      href="{{url_for('static',filename='css/styles.css')}}"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="{{url_for('static',filename='js/app.js')}}"></script>    
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand title" href="{{ url_for('mainpage') }}"
+          >Lista de Tareas</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                aria-current="page"
+                href="{{ url_for('mainpage') }}"
+                id="main-nav"
+                >Lista de Tareas</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="{{ url_for('account') }}"
+                id="services-nav"
+                >Cuenta</a
+              >
+            </li>
+          </ul>
+          <div class="d-flex">
+            <a class="btn btn-outline-warning" href="{{ url_for('logout') }}">
+              Cerrar Sesión
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <main class="image-sumar" id="main">
+      <div class="main-content">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
+        {% if messages %} 
+          {% for category, message in messages %}
+          <div class="alert alert-{{ category }} alert-dismissible" role="alert" id="alert">
+            <!-- <strong>Title</strong> -->
+            {{ message }}
+          </div>
+          {% endfor %} 
+        {% endif %} 
+        {% endwith %} 
+        <h1 class="h1">Datos de la cuenta</h1>
+        <div class="container form-register">
+            <form action="/register" method="post" id="register-form">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Correo Electrónico</label>
+                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Ingresa tu correo" name="email" value="{{ usuario['email'] }}">              
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Nombre de usuario</label>
+                    <input type="text" class="form-control" id="username" placeholder="Ingresa tu nombre" name="username" value="{{ usuario['username'] }}">
+                </div>
+                <div class="form-group">
+                <label for="exampleInputPassword1">Contraseña</label>
+                    <input type="password" class="form-control" id="password1" placeholder="Ingresa tu contraseña" name="password">
+                    <small id="emailHelp" class="form-text text-muted">Nunca compartas tu contraseña con nadie.</small>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Confirmación de contraseña</label>
+                    <input type="password" class="form-control" id="password2" placeholder="Confirma tu contraseña" name="confirm_password">
+                    <div id="msg-passwords" class=""></div>
+                </div>
+                <button type="submit" class="btn btn-primary">Registrar</button>
+            </form>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

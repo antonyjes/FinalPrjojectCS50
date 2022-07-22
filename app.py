@@ -87,7 +87,10 @@ def mainpage():
 @app.route('/account')
 @login_required
 def account():
-    return render_template('account.html')
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cur.execute("SELECT * FROM users WHERE id = %s", (session['user_id'],))
+    usuario = cur.fetchone()
+    return render_template('account.html', usuario = usuario)
 
 
 if __name__ == '__main__':
