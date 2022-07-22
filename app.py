@@ -1,6 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
+from flask import Flask, render_template, request, redirect, session, url_for, flash
 from flask_mysqldb import MySQL, MySQLdb
 from werkzeug.security import generate_password_hash, check_password_hash
+from helpers import login_required
 
 app = Flask(__name__)
 
@@ -15,6 +16,7 @@ mysql = MySQL(app)
 @app.route('/')
 def index():
     return render_template('index.html')
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -46,6 +48,7 @@ def register():
                 return redirect(url_for('login'))
     return render_template('register.html')
 
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -57,14 +60,29 @@ def login():
             email = request.form.get('email')
             password = request.form.get('password')
             cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-            cur.execute("SELECT * FROM users WHERE email = %s AND password = %s", (email, check_password_hash(password)))
+            cur.execute("SELECT * FROM users WHERE email = %s", (email,))
             user = cur.fetchone()
-            if user:
-                flash('Bienvenido', 'success')
-                return redirect(url_for('main'))
+            if user and check_password_hash(user['password'], password):
+                session['user_id'] = user['id']
+                session['user_name'] = user['username']
+                session['user_email'] = user['email']
+                return redirect(url_for('mainpage'))
             else:
                 flash('Email o contraseña incorrectos', 'danger')
     return render_template('login.html')
+
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('login'))
+
+
+@app.route('/mainpage')
+@login_required
+def mainpage():
+    return render_template('mainpage.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
