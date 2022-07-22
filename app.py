@@ -114,6 +114,7 @@ def account():
                 cur.execute("UPDATE users SET username = %s, email = %s, password = %s WHERE id = %s", (username, email, generate_password_hash(password), session['user_id']))
                 mysql.connection.commit()
                 cur.close()
+                session['user_name'] = username
                 flash('Usuario actualizado correctamente', 'success')
                 return redirect(url_for('account'))
     return render_template('account.html', usuario = usuario)
