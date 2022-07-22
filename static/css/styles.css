@@ -15,7 +15,7 @@ nav{
 }
 
 .image-sumar{
-  background-image: url('https://tiempodenegocios.com/wp-content/uploads/2017/10/lista-de-tareas.jpg');
+  background-image: url('https://cdn.appmaster.io/api/_files/PB7ZgKfGJ4TGEFBPQRyeod/download/');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -38,6 +38,8 @@ nav{
   color: #4eb452;
   font-size: 3em;
   text-align: center;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
 .main-content p{
