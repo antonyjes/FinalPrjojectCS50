@@ -84,12 +84,38 @@ def mainpage():
     return render_template('mainpage.html')
 
 
-@app.route('/account')
+@app.route('/account', methods=['GET', 'POST'])
 @login_required
 def account():
     cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cur.execute("SELECT * FROM users WHERE id = %s", (session['user_id'],))
     usuario = cur.fetchone()
+    if request.method == 'POST':
+        if not request.form.get('username'):
+            flash('Nombre de usuario es requerido', 'danger')
+        elif not request.form.get('email'):
+            flash('Correo electrónico es requerido', 'danger')
+        elif not request.form.get('password'):
+            flash('Contraseña es requerida', 'danger')        
+        elif not request.form.get('confirm_password'):
+            flash('Confirma tu contraseña', 'danger')
+        elif request.form.get('password') != request.form.get('confirm_password'):
+            flash('Las contraseñas no coinciden', 'danger')
+        else:
+            email = request.form.get('email')
+            username = request.form.get('username')
+            password = request.form.get('password')
+            cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cur.execute("SELECT * FROM users WHERE email = %s AND id <> %s", (email, session['user_id'],))
+            correos = cur.fetchall()
+            if len(correos) >= 1:
+                flash('Este correo ya existe', 'danger')
+            else:
+                cur.execute("UPDATE users SET username = %s, email = %s, password = %s WHERE id = %s", (username, email, generate_password_hash(password), session['user_id']))
+                mysql.connection.commit()
+                cur.close()
+                flash('Usuario actualizado correctamente', 'success')
+                return redirect(url_for('account'))
     return render_template('account.html', usuario = usuario)
 
 
