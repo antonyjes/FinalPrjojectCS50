@@ -66,3 +66,13 @@ nav{
 .form-group small{
   font-size: 1em;
 }
+
+.task-bar{
+  margin-top: 30px;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.form-task{
+  width: 100%;
+}

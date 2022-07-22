@@ -84,9 +84,12 @@
         {% endif %} 
         {% endwith %} 
         <h1 class="h1">Bienvenido {{ session['user_name'] }}</h1>
-        <p class="h6">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos voluptatibus facilis illum porro temporibus. Maxime odio porro ad officiis eligendi nemo. Libero aperiam quis quae modi distinctio debitis soluta! Expedita? Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus aut ratione, non officiis adipisci quo nostrum veniam dolorum dolor debitis, cumque ullam. Provident culpa veritatis aliquid aliquam vitae optio voluptates?
-        </p>
+        <form action="/addtask" method="POST" class="form-task">
+          <div class="input-group mb-3 task-bar">          
+            <input type="text" class="form-control" placeholder="Tarea" aria-label="Tarea" aria-describedby="basic-addon2">
+            <button class="btn btn-primary" id="basic-addon2">Agregar</button>
+          </div>
+        </form>        
       </div>
     </main>
   </body>
