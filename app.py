@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, session, url_for, flash
+from flask import Flask, render_template, request, redirect, session, url_for, flash, jsonify
 from flask_mysqldb import MySQL, MySQLdb
 from werkzeug.security import generate_password_hash, check_password_hash
 from helpers import login_required
@@ -119,6 +119,50 @@ def account():
                 return redirect(url_for('account'))
     return render_template('account.html', usuario = usuario)
 
+
+@app.route('/fetchtasks', methods=['GET', 'POST'])
+@login_required
+def fetchtasks():
+    if request.method == 'POST':
+        draw = request.form.get('draw')
+        row = int(request.form.get('start'))
+        rowerpage = int(request.form.get('length'))
+        searchValue = request.form.get('search[value]')
+
+        cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cur.execute("SELECT count(*) as total FROM tasks WHERE userid = %s", (session['user_id'],))
+        rsallcount = cur.fetchone()
+        totalRecord = rsallcount['total']
+
+        like = '%' + searchValue + '%'
+        cur.execute("SELECT count(*) as total FROM tasks WHERE userid = %s AND (name LIKE %s OR status LIKE %s)", (session['user_id'], like, like))
+        rsall = cur.fetchone()
+        totalRecordFilter = rsall['total']
+
+        if searchValue == '':
+            cur.execute("SELECT * FROM tasks WHERE userid = %s ORDER BY id DESC LIMIT %s, %s", (session['user_id'], row, rowerpage))
+            tasklist = cur.fetchall()
+        else:
+            cur.execute("SELECT * FROM tasks WHERE userid = %s AND (name LIKE %s OR status LIKE %s) ORDER BY id DESC LIMIT %s, %s", (session['user_id'], like, like, row, rowerpage))
+            tasklist = cur.fetchall()
+        
+        data = []
+
+        for row in tasklist:
+            data.append({
+                'id': row['id'],
+                'name': row['name'],
+                'status': row['status'],
+            })
+        
+        result = {
+            'draw': draw,
+            'recordsTotal': totalRecord,
+            'recordsFiltered': totalRecordFilter,
+            'data': data
+        }
+
+        return jsonify(result)
 
 if __name__ == '__main__':
     app.run(debug=True)

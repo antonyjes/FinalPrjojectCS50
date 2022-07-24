@@ -76,3 +76,13 @@ nav{
 .form-task{
   width: 100%;
 }
+
+.acciones{
+  display: flex;
+  justify-content: space-between;
+}
+
+.dataTables_wrapper{
+  width: 50%;
+  margin-top: 50px;
+}
