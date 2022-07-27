@@ -88,8 +88,8 @@
         <h1 class="h1">Bienvenido {{ session['user_name'] }}</h1>
         <form action="/addtask" method="POST" class="form-task">
           <div class="input-group mb-3 task-bar">          
-            <input type="text" class="form-control" placeholder="Tarea" aria-label="Tarea" aria-describedby="basic-addon2">
-            <button class="btn btn-primary" id="basic-addon2">Agregar</button>
+            <input type="text" class="form-control" placeholder="Tarea" name="task" aria-label="Tarea" aria-describedby="basic-addon2">
+            <button class="btn btn-primary" id="basic-addon2" type="submit">Agregar</button>
           </div>
         </form>
         <table class="display" id="tasks-table" style="width: 100%;">

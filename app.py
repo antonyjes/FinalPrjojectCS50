@@ -164,5 +164,24 @@ def fetchtasks():
 
         return jsonify(result)
 
+
+@app.route('/addtask', methods=['GET', 'POST'])
+@login_required
+def addtask():
+    if request.method == 'POST':
+        if not request.form.get('task'):
+            flash('Nombre de la tarea es requerida', 'danger')
+        else:
+            name = request.form.get('task')
+            status = 'En proceso'
+            cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cur.execute("INSERT INTO tasks (name, status, userid) VALUES (%s, %s, %s)", (name, status, session['user_id']))
+            mysql.connection.commit()
+            cur.close()
+            flash('Tarea creada correctamente', 'success')
+            return redirect(url_for('mainpage'))
+        
+        return redirect(url_for('mainpage'))
+
 if __name__ == '__main__':
     app.run(debug=True)
