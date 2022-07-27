@@ -179,9 +179,9 @@ def addtask():
             mysql.connection.commit()
             cur.close()
             flash('Tarea creada correctamente', 'success')
-            return redirect(url_for('mainpage'))
         
         return redirect(url_for('mainpage'))
+
 
 if __name__ == '__main__':
     app.run(debug=True)
