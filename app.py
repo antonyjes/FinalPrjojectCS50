@@ -202,5 +202,32 @@ def selecttask(id):
         
         return json.dumps(taskarray)
 
+@app.route('/edittask', methods=['GET', 'POST'])
+@login_required
+def edittask():
+    if request.method == 'POST':
+        name = request.form.get('task')
+        status = request.form.get('status')
+        id = request.form.get('id')
+
+        cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cur.execute("UPDATE tasks SET name = %s, status = %s WHERE id = %s AND userid = %s", (name, status, id, session['user_id']))
+        mysql.connection.commit()
+        cur.close()
+        flash('Tarea actualizada correctamente', 'success')
+        return redirect(url_for('mainpage'))
+
+
+@app.route('/deletetask/<int:id>', methods=['GET', 'POST'])
+@login_required
+def deletetask(id):
+    if request.method == 'POST':
+        cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cur.execute("DELETE FROM tasks WHERE id = %s AND userid = %s", (id, session['user_id']))
+        mysql.connection.commit()
+        cur.close()
+        flash('Tarea eliminada correctamente', 'success')
+        return redirect(url_for('mainpage'))
+
 if __name__ == '__main__':
     app.run(debug=True)

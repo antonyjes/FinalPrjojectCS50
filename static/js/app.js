@@ -20,7 +20,7 @@ $(document).ready(function() {
         'ajax': {
             'url' : '/fetchtasks'
         },
-        'lengthMenu': [[10], [10]],
+        'lengthMenu': [[8], [8]],
         searching: true,
         sort: false,
         'columns': [
