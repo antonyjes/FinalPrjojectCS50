@@ -28,7 +28,7 @@ $(document).ready(function() {
             { data: 'status' },
             {
                 mRender : function(data, type, row) {
-                    return '<div class="acciones"><button type="button" class="btn btn-warning btn-sm view-data" data-id="'+row.id+'" data-bs-toggle="modal" data-bs-target="#modaledit">Editar</button>' + '<a href="/tasks/' + row.id + '/delete" class="btn btn-danger btn-sm">Eliminar</a></div>';
+                    return '<div class="acciones"><button type="button" class="btn btn-warning btn-sm view-data" data-id="'+row.id+'" data-bs-toggle="modal" data-bs-target="#modaledit">Editar</button>' + '<a href="/deletetask/' + row.id + '"class="btn btn-danger btn-sm">Eliminar</a></div>';
                 }
             }
         ],

@@ -221,13 +221,12 @@ def edittask():
 @app.route('/deletetask/<int:id>', methods=['GET', 'POST'])
 @login_required
 def deletetask(id):
-    if request.method == 'POST':
-        cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cur.execute("DELETE FROM tasks WHERE id = %s AND userid = %s", (id, session['user_id']))
-        mysql.connection.commit()
-        cur.close()
-        flash('Tarea eliminada correctamente', 'success')
-        return redirect(url_for('mainpage'))
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cur.execute("DELETE FROM tasks WHERE id = %s AND userid = %s", (id, session['user_id']))
+    mysql.connection.commit()
+    cur.close()
+    flash('Tarea eliminada correctamente', 'success')
+    return redirect(url_for('mainpage'))
 
 if __name__ == '__main__':
     app.run(debug=True)
