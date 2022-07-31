@@ -86,3 +86,32 @@ nav{
   width: 50%;
   margin-top: 50px;
 }
+
+thead th{
+  color: #fff;
+  font-size: 1.2em;
+  text-align: center;
+}
+
+tbody td{
+  color: #fff;
+  font-size: 1em;
+}
+
+.dataTables_length label{
+  color: #4eb452;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.dataTables_filter label{
+  color: #4eb452;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.dataTables_info{
+  color: #4eb452;
+  font-size: 1.2em;
+  font-weight: bold;
+}
