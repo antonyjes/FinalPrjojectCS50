@@ -16,6 +16,7 @@ $(document).ready(function() {
         "processing": true,
         "serverSide": true,
         'serverMethod': 'post',
+        'language': { 'url': '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json' },
         'ajax': {
             'url' : '/fetchtasks'
         },
@@ -27,7 +28,7 @@ $(document).ready(function() {
             { data: 'status' },
             {
                 mRender : function(data, type, row) {
-                    return '<div class="acciones"><a href="/tasks/' + row.id + '" class="btn btn-primary btn-sm">Ver</a>' + '<a href="/tasks/' + row.id + '/edit" class="btn btn-warning btn-sm">Editar</a>' + '<a href="/tasks/' + row.id + '/delete" class="btn btn-danger btn-sm">Eliminar</a></div>';
+                    return '<div class="acciones"><a href="/tasks/' + row.id + '/edit" class="btn btn-warning btn-sm">Editar</a>' + '<a href="/tasks/' + row.id + '/delete" class="btn btn-danger btn-sm">Eliminar</a></div>';
                 }
             }
         ],
