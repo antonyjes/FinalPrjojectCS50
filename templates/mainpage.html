@@ -102,6 +102,35 @@
           </thead>
         </table>        
       </div>
+
+      <div class="modal fade" id="modaledit" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Editar Tarea</h4>
+            </div>
+            <div class="modal-body">
+              <form action="/edittask" method="POST">
+                <div class="form-group">
+                  <label for="">Tarea</label>
+                  <input type="text" class="form-control" name="task" required id="view_task">
+                </div>
+                <div class="form-group">
+                  <label for="">Estado</label>
+                  <select name="status" id="view_status" class="form-select" required>
+                    <option value="">Seleccione una opción</option>
+                    <option value="En proceso">En proceso</option>
+                    <option value="Terminado">Terminado</option>
+                  </select>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Cerrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
   </body>
 </html>

@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, session, url_for, f
 from flask_mysqldb import MySQL, MySQLdb
 from werkzeug.security import generate_password_hash, check_password_hash
 from helpers import login_required
+import json
 
 app = Flask(__name__)
 
@@ -182,6 +183,24 @@ def addtask():
         
         return redirect(url_for('mainpage'))
 
+
+@app.route('/selecttask/<int:id>', methods=['GET', 'POST'])
+@login_required
+def selecttask(id):
+    if request.method == 'POST':
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute("SELECT * FROM tasks WHERE id = %s AND userid= %s", (id, session['user_id']))
+        task = cursor.fetchall()
+        taskarray = []
+        for result in task:
+            task_dict = {
+                'id': result['id'],
+                'name': result['name'],
+                'status': result['status'],
+            }
+            taskarray.append(task_dict)
+        
+        return json.dumps(taskarray)
 
 if __name__ == '__main__':
     app.run(debug=True)
